@@ -1,88 +1,142 @@
 
-/*objetivo: Implementar el DOM y EVENTOS*/
 
 
 
+
+
+
+
+
+/*USE CONSTRUCTOR*/
 class Producto{
-    constructor (id,nombre,precio){
+    constructor (id,nombre,imagen,precio){
         this.id=id;
         this.nombre=nombre;
+        this.imagen=imagen;
         this.precio=precio;
     }
 }
 
+class Carrito {
+    constructor (id){
+    this.id =id ;
+    this.productos =[];
+}
 
-/*genere el catalogo de productos*/
+    
+    calcularTotal () {
+        let total = 0;
+
+        /*use el bucle for*/
+        for (let i =0; i < this.productos.length; i++) {
+            total = total + this.productos [i].precio;
+        }
+        return total;
+    }
+}
+
+
+
+
+
+/*genere el catalogo de productos y los almacene en un array*/
 
 let catalogoProductos = [];
 
-let Producto1 = new Producto (1,"hamburguesaxxl",1300);
-let Producto2 = new Producto (2,"hamburguesas",800);
-let Producto3 = new Producto (3,"hamburguesafat",1000);
-let Producto4 = new Producto (4,"hamburguesab",1100);
-let Producto5 = new Producto (5,"hamburguesap",900);
-let Producto6 = new Producto (6,"hamburguesav",1500);
-let Producto7 = new Producto (7,"papafritas",650);
-let Producto8 = new Producto (8,"nachosconcheddar",950);
+let Producto1 = new Producto (1,"hamburguesaxxl","hamburguesa 2.jpg",1300);
+let Producto2 = new Producto (2,"hamburguesas","hamburguesa 3.jpg",800);
+let Producto3 = new Producto (3,"hamburguesafat", "hamburguesa 4.jpg",1000);
+let Producto4 = new Producto (4,"hamburguesab","hamburguesa 5.jpg",1100);
 
+/*los cargue*/
 catalogoProductos.push(Producto1);
 catalogoProductos.push(Producto2);
 catalogoProductos.push(Producto3);
 catalogoProductos.push(Producto4);
-catalogoProductos.push(Producto5);
-catalogoProductos.push(Producto6);
-catalogoProductos.push(Producto7);
-catalogoProductos.push(Producto8);
 
 
-/*implemento DOM y agrego en consola los productos*/
 
-let botonUno = document.getElementById("btnEventoUno");
-let botonDos = document.getElementById("btnEventoDos");
-let botonTres = document.getElementById("btnEventoTres");
-let botonCuatro = document.getElementById("btnEventoCuatro");
-let botonCinco = document.getElementById("btnEventoCinco");
-let botonSeis = document.getElementById("btnEventoSeis");
-let botonSiete= document.getElementById("btnEventoSiete");
-let botonOcho = document.getElementById("btnEventoOcho");
+/*implemento DOM generando las tarjetas del producto*/ 
+
+let cardsDiv = document.querySelector("#cards");
 
 
-/*implemento el evento onclick para comprar y se agrega el producto a la consola*/
-/*aca le agregue el producto completo directamente.... pero podria haber puesto un mensaje y mostrar la cantidad en una misma linea*/
-
-botonUno.onclick = () =>{
-    console.log(Producto1);
-    }
-    
+catalogoProductos.forEach(Producto => {
+    cardsDiv.innerHTML += renderCard(Producto);
+})
 
 
-botonDos.onclick = () =>{
-    console.log(Producto2);
+
+/*FUNCIONES + generacion de mis cards */
+function renderCard (producto){
+    cardRendered =
+                    `<div class="card">
+                        <img src=" " alt="" class="card-img">
+                        <h2>${producto.id}.${producto.nombre}</h2>
+                        <p>Carne, huevofrito, lechuga,tomate y pan de cebolla.</p>
+                        <p class="precio">${producto.precio}</p>
+                        <button class="botonDeCompra" id=${producto.id}>Comprar</button>
+                    </div> ` 
+                    return cardRendered;
+
 }
 
-botonTres.onclick = () =>{
-    console.log(Producto3);
+
+function limpiarCarrito(){
+    let divCarrito = document.querySelector("#carrito");
+    divCarrito.innerHTML ="";
 }
 
-botonCuatro.onclick = () =>{
-    console.log(Producto4);
+function actualizarCarrito(){
+    let divCarrito = document.querySelector("#carrito");
+    carrito.productos.forEach(producto =>{
+        divCarrito.innerHTML += renderCard(producto);
+    })
+    divCarrito.innerHTML +=  `<h1>$ ${carrito.calcularTotal()}</h1> `
 }
 
-botonCinco.onclick = () =>{
-    console.log(Producto5);
-}
 
-botonSeis.onclick = () =>{
-    console.log(Producto6);
-}
 
-botonSiete.onclick = () =>{
-    console.log(Producto7);
-}
 
-botonOcho.onclick = () =>{
-    console.log(Producto8);
-}
+
+
+
+
+/*ingresar el producto al carrito de compras*/
+
+let carrito = new Carrito (1);
+
+let botones = document.querySelectorAll (".botonDeCompra");
+
+/*converti el boton a un array*/
+let arrayDeBotones = Array.from(botones);
+
+
+/*use eventos con el "click"*/
+arrayDeBotones.forEach(boton =>{
+    boton.addEventListener ("click", (e) =>{
+        
+        let productoSeleccionado = catalogoProductos.find (producto => producto.id == e.target.id);
+        carrito.productos.push(productoSeleccionado);
+        limpiarCarrito();
+        actualizarCarrito();
+        
+
+    })
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

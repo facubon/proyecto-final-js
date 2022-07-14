@@ -19,7 +19,7 @@ header {
 
 
 
-.logo{
+.carro{
     width: 35px;
     padding-top: 10px;
 }
@@ -28,7 +28,9 @@ header {
     display: flex;
     background-color:#ff6900;
     justify-content: center;
-    flex-wrap:wrap;
+    flex-wrap: nowrap;
+    
+    
 
 }
 
@@ -60,42 +62,7 @@ header {
 
 }
 
-.car-1{
-    background-image: url(./img/hamburguesa\ completa.jpg);
-    
-}
 
-.car-2{
-    background-image: url(./img/hamburguesa\ 3.jpg);
-
-}
-
-.car-3{
-    background-image: url(./img/hamburguesa\ 2.jpg);
-
-}
-
-.car-4{
-    background-image: url(./img/hamburguesa\ 4.jpg);
-
-}
-
-.car-5{
-    background-image: url(./img/hamburguesa\ 5.jpg);
-
-}
-
-.car-6{
-    background-image: url(./img/vegetariana.jpg);
-}
-
-.car-7{
-    background-image: url(./img/fritacheddar.jpg);
-}
-
-.car-8{
-    background-image: url(./img/cheddar.jpg);
-}
 
 h2{
     text-align: center;
