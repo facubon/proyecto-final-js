@@ -87,13 +87,35 @@ function limpiarCarrito(){
     divCarrito.innerHTML ="";
 }
 
-function actualizarCarrito(){
+function actualizarCarrito(carrito){
     let divCarrito = document.querySelector("#carrito");
     carrito.productos.forEach(producto =>{
         divCarrito.innerHTML += renderCard(producto);
     })
     divCarrito.innerHTML +=  `<h1>$ ${carrito.calcularTotal()}</h1> `
 }
+
+/*storage*/
+function renovarStorage(){
+    localStorage.removeItem ("carrito");
+    /* uso de JSON*/
+    localStorage.setItem("carrito",JSON.stringify (carrito));
+}
+
+/*cargo carrito existente */
+
+window.addEventListener ( 'DOMContentLoaded',(e)=>{
+    let storage = JSON.parse (localStorage.getItem("carrito"));
+    let carritoGuardado = new Carrito(storage.id, storage.productos);
+    storage.productos.forEach(producto => {
+        carritoGuardado.productos.push(producto);
+    })
+    
+    limpiarCarrito();
+    actualizarCarrito(carritoGuardado);
+})
+
+
 
 
 
@@ -119,7 +141,11 @@ arrayDeBotones.forEach(boton =>{
         let productoSeleccionado = catalogoProductos.find (producto => producto.id == e.target.id);
         carrito.productos.push(productoSeleccionado);
         limpiarCarrito();
-        actualizarCarrito();
+        actualizarCarrito(carrito)
+        
+        /* storage */
+        renovarStorage();
+        
         
 
     })
