@@ -25,7 +25,7 @@ header {
 }
 
 .container{
-    display: flex;
+    display:flex;
     background-color:#ff6900;
     justify-content: center;
     flex-wrap: nowrap;
@@ -49,12 +49,14 @@ header {
 
 .card-img{
     height: 170px;
+    width: 100%;
     margin-bottom: 15px;
     background-size: cover;
     border-radius: 9px;
     position: relative;
     overflow: hidden;
     box-shadow: 0px 15px 25px #1f2221;
+    
 
 
     

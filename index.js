@@ -9,11 +9,12 @@
 
 /*USE CONSTRUCTOR*/
 class Producto{
-    constructor (id,nombre,imagen,precio){
+    constructor (id,nombre,imagen,precio,cantidad){
         this.id=id;
         this.nombre=nombre;
         this.imagen=imagen;
         this.precio=precio;
+        this.cantidad=cantidad;
     }
 }
 
@@ -43,10 +44,10 @@ class Carrito {
 
 let catalogoProductos = [];
 
-let Producto1 = new Producto (1,"hamburguesaxxl","hamburguesa 2.jpg",1300);
-let Producto2 = new Producto (2,"hamburguesas","hamburguesa 3.jpg",800);
-let Producto3 = new Producto (3,"hamburguesafat", "hamburguesa 4.jpg",1000);
-let Producto4 = new Producto (4,"hamburguesab","hamburguesa 5.jpg",1100);
+let Producto1 = new Producto (1,"hamburguesaxxl","hamburguesa 2.jpg",1300,1);
+let Producto2 = new Producto (2,"hamburguesas","hamburguesa 3.jpg",800,1);
+let Producto3 = new Producto (3,"hamburguesafat", "hamburguesa 4.jpg",1000,1);
+let Producto4 = new Producto (4,"hamburguesab","hamburguesa 5.jpg",1100,1);
 
 /*los cargue*/
 catalogoProductos.push(Producto1);
@@ -68,16 +69,19 @@ catalogoProductos.forEach(Producto => {
 
 
 /*FUNCIONES + generacion de mis cards */
+
 function renderCard (producto){
     cardRendered =
                     `<div class="card">
-                        <img src=" " alt="" class="card-img">
+                        <img src="./img/${producto.imagen} " alt="" class="card-img">
                         <h2>${producto.id}.${producto.nombre}</h2>
                         <p>Carne, huevofrito, lechuga,tomate y pan de cebolla.</p>
                         <p class="precio">${producto.precio}</p>
                         <button class="botonDeCompra" id=${producto.id}>Comprar</button>
                     </div> ` 
                     return cardRendered;
+
+                
 
 }
 
@@ -94,6 +98,13 @@ function actualizarCarrito(carrito){
     })
     divCarrito.innerHTML +=  `<h1>$ ${carrito.calcularTotal()}</h1> `
 }
+
+
+let agregarAlCarrito = (prodId) => {
+    const ITEM = stockProductos.find ((prod) => prod.id ===prodId)
+    carritoCompras.push (ITEM);
+}
+
 
 /*storage*/
 function renovarStorage(){
@@ -126,6 +137,8 @@ window.addEventListener ( 'DOMContentLoaded',(e)=>{
 
 /*ingresar el producto al carrito de compras*/
 
+
+
 let carrito = new Carrito (1);
 
 let botones = document.querySelectorAll (".botonDeCompra");
@@ -150,6 +163,8 @@ arrayDeBotones.forEach(boton =>{
 
     })
 })
+
+
 
 
 
