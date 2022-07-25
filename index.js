@@ -100,10 +100,7 @@ function actualizarCarrito(carrito){
 }
 
 
-let agregarAlCarrito = (prodId) => {
-    const ITEM = stockProductos.find ((prod) => prod.id ===prodId)
-    carritoCompras.push (ITEM);
-}
+
 
 
 /*storage*/
@@ -153,16 +150,26 @@ arrayDeBotones.forEach(boton =>{
         
         let productoSeleccionado = catalogoProductos.find (producto => producto.id == e.target.id);
         carrito.productos.push(productoSeleccionado);
+
+        
+
         limpiarCarrito();
         actualizarCarrito(carrito)
         
         /* storage */
         renovarStorage();
         
-        
+        /*uso de libreria*/
+        Swal.fire({
+            icon: 'success',
+            title: 'Agregado al carrito!',
+            
+        })
 
     })
 })
+
+
 
 
 
