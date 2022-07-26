@@ -131,3 +131,8 @@ footer img{
 
 
 
+.compra{
+    text-align: center;
+    justify-content: center;
+    display: flex;
+}

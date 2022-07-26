@@ -7,6 +7,7 @@
 
 
 
+
 /*USE CONSTRUCTOR*/
 class Producto{
     constructor (id,nombre,imagen,precio,cantidad){
@@ -89,6 +90,11 @@ function renderCard (producto){
 function limpiarCarrito(){
     let divCarrito = document.querySelector("#carrito");
     divCarrito.innerHTML ="";
+
+    
+
+    
+    
 }
 
 function actualizarCarrito(carrito){
@@ -108,6 +114,23 @@ function renovarStorage(){
     localStorage.removeItem ("carrito");
     /* uso de JSON*/
     localStorage.setItem("carrito",JSON.stringify (carrito));
+
+    
+}
+
+function finalizarCompra() {
+
+    /* uso de libreria*/
+    Swal.fire({
+        title: 'Antes de finalizar la compra debes registrarte!',
+        showClass: {
+        popup: 'animate__animated animate__fadeInDown'
+        },
+        hideClass: {
+        popup: 'animate__animated animate__fadeOutUp'
+        }
+    })
+
 }
 
 /*cargo carrito existente */
@@ -122,6 +145,7 @@ window.addEventListener ( 'DOMContentLoaded',(e)=>{
     limpiarCarrito();
     actualizarCarrito(carritoGuardado);
 })
+
 
 
 
@@ -154,9 +178,11 @@ arrayDeBotones.forEach(boton =>{
         
 
         limpiarCarrito();
-        actualizarCarrito(carrito)
+
         
-        /* storage */
+        actualizarCarrito(carrito)
+
+         /* storage */
         renovarStorage();
         
         /*uso de libreria*/
@@ -165,11 +191,12 @@ arrayDeBotones.forEach(boton =>{
             title: 'Agregado al carrito!',
             
         })
+        
+        
+    
 
     })
 })
-
-
 
 
 
