@@ -1,13 +1,33 @@
-const cards = document.getElementById('cards')
-const templateCard = document.getElementById('template-card').content
-const items = document.getElementById('items')
-const footer = document.getElementById('footer')
-const templateFooter = document.getElementById('template-footer').content
-const templateCarrito = document.getElementById('template-carrito').content
-const fragment = document.createDocumentFragment()
-let carrito = {}
 
 
+
+
+/*variables*/
+
+
+let cardsProductos = document.getElementById('cardsProductos')
+let productoHamburguesa = document.getElementById('productoHamburguesa').content
+let itemsHamburguesa = document.getElementById('itemsProductos')
+let footer = document.getElementById('footer')
+let fragment = document.createDocumentFragment()
+let piecarrito = document.getElementById('piecarrito').content
+let pieCarrito2 = document.getElementById('piecarrito2').content
+
+
+
+
+
+
+
+/*carrito*/
+let carrito = []
+
+
+
+
+
+
+/*-------------events-----------------*/
 document.addEventListener('DOMContentLoaded', ()=>{
     /*consiga desafio*/
 	fetchData()
@@ -18,18 +38,18 @@ document.addEventListener('DOMContentLoaded', ()=>{
 }
 )
 
-cards.addEventListener('click', e =>{
+cardsProductos.addEventListener('click', e =>{
 	addCarrito(e)
 })
 
-items.addEventListener('click', e=>{
+itemsHamburguesa.addEventListener('click', e=>{
 	btnAccion(e)
 })
 
 /*consigna desafio*/
 const fetchData = async()=>{
 	try{
-		const res = await fetch('productos.json')
+		const res = await fetch('hamburguesas.js')
 		const data = await res.json()
 		pintarCard(data)
 
@@ -40,14 +60,14 @@ const fetchData = async()=>{
 
 const pintarCard = data=>{
 	data.forEach(item => {
-		templateCard.querySelector('h5').textContent = item.title
-		templateCard.querySelector('p').textContent = item.precio
-		templateCard.querySelector('img').setAttribute('src', item.thumbnailUrl)
-		templateCard.querySelector('.btn-dark').dataset.id = item.id
-		const clone = templateCard.cloneNode(true)
+		productoHamburguesa.querySelector('h5').textContent = item.titulo
+		productoHamburguesa.querySelector('p').textContent = item.precio
+		productoHamburguesa.querySelector('img').setAttribute('src', item.imagen)
+		productoHamburguesa.querySelector('.btn-dark').dataset.id = item.id
+		const clone = productoHamburguesa.cloneNode(true)
 		fragment.appendChild(clone)
 	})
-	cards.appendChild(fragment)
+	cardsProductos.appendChild(fragment)
 }
 
 const addCarrito = e =>{
@@ -80,19 +100,19 @@ const setCarrito = item => {
 
 const pintarCarrito = ()=> {
 	
-	items.innerHTML = ''
+	itemsHamburguesa.innerHTML = ''
 	Object.values(carrito).forEach(producto => {
-		templateCarrito.querySelector('th').textContent = producto.id
-		templateCarrito.querySelectorAll('td')[0].textContent = producto.title
-		templateCarrito.querySelectorAll('td')[1].textContent = producto.cantidad
-		templateCarrito.querySelector('.btn-info').dataset.id = producto.id
-		templateCarrito.querySelector('.btn-danger').dataset.id = producto.id
-		templateCarrito.querySelector('span').textContent = producto.cantidad * producto.precio
-		const clone = templateCarrito.cloneNode(true)
+		pieCarrito2.querySelector('th').textContent = producto.id
+		pieCarrito2.querySelectorAll('td')[0].textContent = producto.title
+		pieCarrito2.querySelectorAll('td')[1].textContent = producto.cantidad
+		pieCarrito2.querySelector('.btn-info').dataset.id = producto.id
+		pieCarrito2.querySelector('.btn-danger').dataset.id = producto.id
+		pieCarrito2.querySelector('span').textContent = producto.cantidad * producto.precio
+		const clone = pieCarrito2.cloneNode(true)
 		fragment.appendChild(clone)
 	})
 
-	items.appendChild(fragment)
+	itemsHamburguesa.appendChild(fragment)
 
 	pintarFooter()
 
@@ -112,10 +132,10 @@ const pintarFooter = () => {
 		const nCantidad = Object.values(carrito).reduce((acc, {cantidad})=> acc + cantidad, 0)
 		const nPrecio = Object.values(carrito).reduce((acc, {cantidad, precio}) => acc + cantidad * precio, 0)
 		
-		templateFooter.querySelectorAll('td')[0].textContent = nCantidad
-		templateFooter.querySelector('span').textContent = nPrecio
+		piecarrito.querySelectorAll('td')[0].textContent = nCantidad
+		piecarrito.querySelector('span').textContent = nPrecio
 	
-		const clone = templateFooter.cloneNode(true)
+		const clone = piecarrito.cloneNode(true)
 		fragment.appendChild(clone)
 		footer.appendChild(fragment)
 	
@@ -126,9 +146,9 @@ const pintarFooter = () => {
 				icon: 'success',
 				title: 'El carrito a sido borrado correctamente',
 				text: 'No te quedes sin tu hamburguesa!',
-			  })
+			})
 
-			carrito = {}
+			carrito = []
 			pintarCarrito()
 
 
