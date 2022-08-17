@@ -12,11 +12,12 @@ let footer = document.getElementById('footer')
 let fragment = document.createDocumentFragment()
 let piecarrito = document.getElementById('piecarrito').content
 let pieCarrito2 = document.getElementById('piecarrito2').content
-
-
-
-
-
+let nCantidad
+let nPrecio
+let btnVaciar
+let producto
+let pintarCarrito
+let pintarCard
 
 
 /*carrito*/
@@ -58,7 +59,7 @@ const fetchData = async()=>{
 	}
 }
 
-const pintarCard = data=>{
+	pintarCard = data=>{
 	data.forEach(item => {
 		productoHamburguesa.querySelector('h5').textContent = item.titulo
 		productoHamburguesa.querySelector('p').textContent = item.precio
@@ -81,6 +82,11 @@ e.stopPropagation()
 
 
 
+
+
+
+
+/*carrito de compras*/
 const setCarrito = item => {
 	
 	const producto = {
@@ -98,14 +104,17 @@ const setCarrito = item => {
 	pintarCarrito()
 }
 
-const pintarCarrito = ()=> {
+
+
+/* innerHTML del carrito*/
+	pintarCarrito = ()=> {
 	
 	itemsHamburguesa.innerHTML = ''
 	Object.values(carrito).forEach(producto => {
 		pieCarrito2.querySelector('th').textContent = producto.id
 		pieCarrito2.querySelectorAll('td')[0].textContent = producto.title
-		pieCarrito2.querySelectorAll('td')[1].textContent = producto.cantidad
-		pieCarrito2.querySelector('.btn-info').dataset.id = producto.id
+		pieCarrito2.querySelectorAll('td')[0].textContent = producto.cantidad
+		pieCarrito2.querySelector('.btn-success').dataset.id = producto.id
 		pieCarrito2.querySelector('.btn-danger').dataset.id = producto.id
 		pieCarrito2.querySelector('span').textContent = producto.cantidad * producto.precio
 		const clone = pieCarrito2.cloneNode(true)
@@ -120,6 +129,12 @@ const pintarCarrito = ()=> {
 
 }
 
+
+
+
+
+
+/* pie del carrito*/
 const pintarFooter = () => {
 		footer.innerHTML = ''
 		if(Object.keys(carrito).length === 0){
@@ -129,8 +144,8 @@ const pintarFooter = () => {
 			return
 		}
 
-		const nCantidad = Object.values(carrito).reduce((acc, {cantidad})=> acc + cantidad, 0)
-		const nPrecio = Object.values(carrito).reduce((acc, {cantidad, precio}) => acc + cantidad * precio, 0)
+		nCantidad = Object.values(carrito).reduce((acc, {cantidad})=> acc + cantidad, 0)
+		nPrecio = Object.values(carrito).reduce((acc, {cantidad, precio}) => acc + cantidad * precio, 0)
 		
 		piecarrito.querySelectorAll('td')[0].textContent = nCantidad
 		piecarrito.querySelector('span').textContent = nPrecio
@@ -139,7 +154,7 @@ const pintarFooter = () => {
 		fragment.appendChild(clone)
 		footer.appendChild(fragment)
 	
-		const btnVaciar = document.getElementById('vaciar-carrito')
+		btnVaciar = document.getElementById('vaciar-carrito')
 		btnVaciar.addEventListener('click', ()=>{
 
 			Swal.fire({
@@ -156,11 +171,16 @@ const pintarFooter = () => {
 	}
 
 
+
+
+
+
+	/*boton accion */
 const btnAccion = e =>{
 	
 	if(e.target.classList.contains('btn-info')){
 		
-		const producto = carrito[e.target.dataset.id]
+		producto = carrito[e.target.dataset.id]
 		producto.cantidad++
 
 		carrito[e.target.dataset.id] = {...producto}
@@ -168,7 +188,7 @@ const btnAccion = e =>{
 	}
 
 	if(e.target.classList.contains('btn-danger')){
-		const producto = carrito[e.target.dataset.id]
+		producto = carrito[e.target.dataset.id]
 		producto.cantidad--
 		if(producto.cantidad ===0){
 			delete carrito[e.target.dataset.id]

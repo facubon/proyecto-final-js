@@ -29,7 +29,9 @@
             <div class="c">Carrito de compras <img src="./imgs/carritocompras.png" alt="carrito" class="carro"> </div>
             
             
-            
+
+
+            <!----------------menu tabla carrito---------------->
             <table class="table">
 
                 <thead>
@@ -50,7 +52,11 @@
               </table>
             <div class="row" id="cardsProductos"></div>
         </div>
-    
+
+
+
+
+    <!----------pie menu del carrito------>
         <template id="piecarrito">
             <th scope="row" colspan="2">Total Burgers seleccionadas</th>
             <td>10</td>
@@ -62,24 +68,32 @@
             <td class="font-weight-bold">$ <span></span></td>
         </template>
         
+
+        <!--------------- suma/resta de los productos en el carrito---------->
         <template id="piecarrito2">
           <tr>
             <th scope="row">id</th>
             <td></td>
             <td></td>
+
+
+            <!-----------------botones suma/resta------------->
             <td>
-                <button class="btn btn-info btn-sm">
+                <button class="btn btn-success btn-sm">
                     +
                 </button>
                 <button class="btn btn-danger btn-sm">
                     -
                 </button>
             </td>
+
             <td>$ <span></span></td>
           </tr>
         </template>
     
     
+
+        <!----------------menu cards hamburguesas-------------->
         <template id="productoHamburguesa">
             <div class="col-12 mb-2 col-md-4">
               <div class="card">
