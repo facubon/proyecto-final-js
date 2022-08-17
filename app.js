@@ -113,7 +113,7 @@ const setCarrito = item => {
 	Object.values(carrito).forEach(producto => {
 		pieCarrito2.querySelector('th').textContent = producto.id
 		pieCarrito2.querySelectorAll('td')[0].textContent = producto.title
-		pieCarrito2.querySelectorAll('td')[0].textContent = producto.cantidad
+		pieCarrito2.querySelectorAll('td')[1].textContent = producto.cantidad
 		pieCarrito2.querySelector('.btn-success').dataset.id = producto.id
 		pieCarrito2.querySelector('.btn-danger').dataset.id = producto.id
 		pieCarrito2.querySelector('span').textContent = producto.cantidad * producto.precio
