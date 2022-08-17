@@ -18,6 +18,7 @@ let btnVaciar
 let producto
 let pintarCarrito
 let pintarCard
+let botonComprar
 
 
 /*carrito*/
@@ -135,6 +136,8 @@ const setCarrito = item => {
 
 
 /* pie del carrito*/
+
+
 const pintarFooter = () => {
 		footer.innerHTML = ''
 		if(Object.keys(carrito).length === 0){
@@ -154,6 +157,12 @@ const pintarFooter = () => {
 		fragment.appendChild(clone)
 		footer.appendChild(fragment)
 	
+
+
+
+
+
+		/*alerta cancelar compra*/
 		btnVaciar = document.getElementById('vaciar-carrito')
 		btnVaciar.addEventListener('click', ()=>{
 
@@ -168,8 +177,27 @@ const pintarFooter = () => {
 
 
 		})
-	}
 
+
+
+
+		/*alerta confirmar compra*/
+		botonComprar = document.getElementById('comprar')
+		botonComprar.addEventListener('click', ()=>{
+
+			Swal.fire({
+				icon: 'success',
+				title: 'Gracias por tu compra!',
+				text: 'Te avisaremos cuando este en camino',
+			})
+
+			carrito = []
+			pintarCarrito()
+
+
+		})
+	
+	}
 
 
 
