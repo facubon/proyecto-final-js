@@ -178,7 +178,7 @@ const pintarFooter = () => {
 	/*boton accion */
 const btnAccion = e =>{
 	
-	if(e.target.classList.contains('btn-info')){
+	if(e.target.classList.contains('btn-success')){
 		
 		producto = carrito[e.target.dataset.id]
 		producto.cantidad++
